@@ -72,14 +72,14 @@ public class MockGetAPITest {
         ValidatableResponse response =
                 given() // Start building the request specification
                 .when() // Perform the action (in this case, an HTTP GET request)
-                        .get(requestUrl) // Specify the URL to send the GET request to
+                        .get(requestUrl) // Specify the URL to send the GET request
                 .then() // Start defining assertions on the response
                         .assertThat() // Begin assertion configuration
                         .statusCode(200) // Check that the response status code is 200 (OK)
                         .log() // Log details of the request and response
                         .all(); // Log all details (request headers, body, response headers, and body)
 
-        // Extract and verify specific response data
+        // Assertions to validate specific fields in the response
         // Verify the status code
         Assert.assertEquals(response.extract().statusCode(), 200, "Unexpected status code");
 

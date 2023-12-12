@@ -77,11 +77,11 @@ public class MockPutAPITest {
         ValidatableResponse response =
                 given() // Start building the request specification
                         .body(payloadJson) // Set the request body to the provided JSON payload
-                .when() // Perform the action (in this case, an HTTP POST request)
+                .when() // Perform the action (in this case, an HTTP PUT request)
                         .put(requestUrl) // Specify the URL to send the PUT request
                 .then() // Start defining assertions on the response
                         .assertThat() // Begin assertion configuration
-                        .statusCode(200) // Check that the response status code is 200 (Created)
+                        .statusCode(200) // Check that the response status code is 200 (OK)
                         .log() // Log details of the request and response
                         .all(); // Log all details (request headers, body, response headers, and body)
 
