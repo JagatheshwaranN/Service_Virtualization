@@ -23,7 +23,7 @@ public class MockGetAPITest {
     // Method to start WireMockServer before tests
     @BeforeTest
     public void startupServer() {
-        // Create and start the WireMock server
+        // Initialize and start WireMockServer
         wireMockServer = new WireMockServer(PORT);
 
         try {
@@ -70,20 +70,22 @@ public class MockGetAPITest {
 
         // Perform the GET request and validate the response
         ValidatableResponse response =
-                given()
-                .when()
-                        .get(requestUrl)
-                .then()
-                        .assertThat()
-                        .statusCode(200) // Check for status code 200
-                        .log()
-                        .all();
+                given() // Start building the request specification
+                .when() // Perform the action (in this case, an HTTP GET request)
+                        .get(requestUrl) // Specify the URL to send the GET request to
+                .then() // Start defining assertions on the response
+                        .assertThat() // Begin assertion configuration
+                        .statusCode(200) // Check that the response status code is 200 (OK)
+                        .log() // Log details of the request and response
+                        .all(); // Log all details (request headers, body, response headers, and body)
 
         // Extract and verify specific response data
         // Verify the status code
         Assert.assertEquals(response.extract().statusCode(), 200, "Unexpected status code");
+
         // Verify the Content-Type header
         Assert.assertEquals(response.extract().header("Content-Type"), "application/json", "Unexpected Content-Type");
+
         // Verify the worker ID
         Assert.assertEquals(response.extract().jsonPath().get("worker.id"), "EMP101", "Incorrect worker ID");
     }
