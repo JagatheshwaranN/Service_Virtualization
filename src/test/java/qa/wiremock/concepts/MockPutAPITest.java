@@ -11,6 +11,17 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
+/**
+ * This code effectively demonstrates the application of WireMock and REST
+ * Assured libraries to test a PUT API endpoint responsible for updating
+ * user details.
+ * It establishes a simulated server environment through WireMock to precisely
+ * replicate the behavior of the "/user/update/.*" endpoint.
+ * REST Assured handles the execution of HTTP PUT requests and validates the
+ * anticipated responses.
+ *
+ * @author Jagatheshwaran N
+ */
 public class MockPutAPITest {
 
     // Constants for host and port

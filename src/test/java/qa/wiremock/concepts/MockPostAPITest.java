@@ -11,6 +11,16 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
+/**
+ * This code exemplifies the use of WireMock and REST Assured libraries
+ * to test a POST API endpoint responsible for adding user data.
+ * It establishes a simulated server environment via WireMock, replicating the
+ * behavior of the "/user/add" endpoint.
+ * Meanwhile, REST Assured executes HTTP POST requests and ensures the expected
+ * responses are accurate.
+ *
+ * @author Jagatheshwaran N
+ */
 public class MockPostAPITest {
 
     // Constants for host and port

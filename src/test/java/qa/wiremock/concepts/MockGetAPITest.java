@@ -11,6 +11,17 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
+/**
+ *  This code demonstrates the effective use of WireMock and REST Assured to mock
+ *  and test a GET API endpoint aimed at retrieving user information.
+ *  It employs the WireMock library to simulate a server's behavior, replicating the
+ *  /user/emp101 endpoint, while REST Assured is utilized to send HTTP requests and
+ *  validate the responses.
+ *  The primary goal is to create a mock environment resembling a real API server
+ *  and ensure that expected responses are handled accurately during testing.
+ *
+ * @author Jagatheshwaran N
+ */
 public class MockGetAPITest {
 
     // Constants for host and port

@@ -11,6 +11,17 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
+/**
+ * This code demonstrates the use of WireMock and REST Assured to test a DELETE
+ * API endpoint responsible for removing user data.
+ * It configures a simulated server environment with WireMock to replicate the
+ * behavior of the /user/.* endpoint, while REST Assured handles the execution
+ * of HTTP DELETE requests and validation of the expected responses.
+ * The code's primary purpose lies in mocking and testing the functionality of a
+ * DELETE API endpoint to ensure accurate deletion of user information.
+ *
+ * @author Jagatheshwaran N
+ */
 public class MockDeleteAPITest {
 
     // Constants for host and port
