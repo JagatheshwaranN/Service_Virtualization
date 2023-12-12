@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
-public class WireMockCloudDynamicResponseTestCase {
+public class WireMockCloudDynamicResponseTest {
 
     @Test(priority = 1)
     public void cloudDynamicResponseTest() {

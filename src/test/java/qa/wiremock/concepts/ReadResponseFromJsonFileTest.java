@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
-public class StartServerFromCodeAndMockAPITestCase {
+public class ReadResponseFromJsonFileTest {
 
     private static final String HOST = "localhost";
 
@@ -26,11 +26,11 @@ public class StartServerFromCodeAndMockAPITestCase {
         WireMock.configureFor(HOST, PORT);
         ResponseDefinitionBuilder responseDefinitionBuilder = new ResponseDefinitionBuilder();
         responseDefinitionBuilder.withStatus(200);
-        responseDefinitionBuilder.withHeader("Content-Type", "text/json");
+        responseDefinitionBuilder.withHeader("Content-Type", "application/json");
         responseDefinitionBuilder.withHeader("Token", "98765");
         responseDefinitionBuilder.withHeader("Set-Cookie", "session_id=987654321");
-        responseDefinitionBuilder.withBody("Hello John, Nice to see you!!");
-        WireMock.stubFor(WireMock.get("/employee/1").willReturn(responseDefinitionBuilder));
+        responseDefinitionBuilder.withBodyFile("json/worker.json");
+        WireMock.stubFor(WireMock.get("/worker/1").willReturn(responseDefinitionBuilder));
     }
 
     @AfterTest
@@ -45,7 +45,7 @@ public class StartServerFromCodeAndMockAPITestCase {
         ValidatableResponse response =
         given()
         .when()
-                .get("http://localhost:8080/employee/1")
+                .get("http://localhost:8080/worker/1")
         .then()
                 .assertThat()
                 .statusCode(200)
@@ -53,10 +53,11 @@ public class StartServerFromCodeAndMockAPITestCase {
                 .all();
 
         Assert.assertEquals(response.extract().statusLine(), "HTTP/1.1 200 OK");
-        Assert.assertEquals(response.extract().header("Content-Type"), "text/json");
-        Assert.assertEquals(response.extract().header("Token"), "98765");
+        Assert.assertEquals(response.extract().header("Content-Type"), "application/json");
         Assert.assertEquals(response.extract().header("Set-Cookie"), "session_id=987654321");
-        Assert.assertEquals(response.extract().body().asString(), "Hello John, Nice to see you!!");
+        Assert.assertEquals(response.extract().jsonPath().get("worker.id"), "EMP101");
+        Assert.assertEquals(response.extract().jsonPath().get("worker.name"), "John Doe");
+        Assert.assertEquals(response.extract().jsonPath().get("worker.address.country"), "United States");
     }
 
 }

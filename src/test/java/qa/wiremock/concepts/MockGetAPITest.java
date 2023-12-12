@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
-public class MockDeleteAPITestCase {
+public class MockGetAPITest {
 
     private static final String HOST = "localhost";
 
@@ -25,10 +25,10 @@ public class MockDeleteAPITestCase {
         wireMockServer.start();
         WireMock.configureFor(HOST, PORT);
         ResponseDefinitionBuilder responseDefinitionBuilder = new ResponseDefinitionBuilder();
-        responseDefinitionBuilder.withStatus(204);
+        responseDefinitionBuilder.withStatus(200);
         responseDefinitionBuilder.withHeader("Content-Type", "application/json");
-        responseDefinitionBuilder.withBodyFile("json/delete_user.json");
-        WireMock.stubFor(WireMock.delete(WireMock.urlPathMatching("/user/.*")).willReturn(responseDefinitionBuilder));
+        responseDefinitionBuilder.withBodyFile("json/get_user.json");
+        WireMock.stubFor(WireMock.get(WireMock.urlPathEqualTo("/user/emp101")).willReturn(responseDefinitionBuilder));
     }
 
     @AfterTest
@@ -39,19 +39,24 @@ public class MockDeleteAPITestCase {
     }
 
     @Test
-    public void mockDeleteApiTest() {
+    public void mockGetApiTest() {
         ValidatableResponse response =
                 given()
                 .when()
-                        .delete("http://localhost:8080/user/emp101")
+                        .get("http://localhost:8080/user/emp101")
                 .then()
                         .assertThat()
-                        .statusCode(204)
+                        .statusCode(200)
                         .log()
                         .all();
 
-        Assert.assertEquals(response.extract().statusCode(), 204);
+        Assert.assertEquals(response.extract().statusCode(), 200);
         Assert.assertEquals(response.extract().header("Content-Type"), "application/json");
+        Assert.assertEquals(response.extract().jsonPath().get("worker.id"), "EMP101");
+        Assert.assertEquals(response.extract().jsonPath().get("worker.name"), "John Doe");
+        Assert.assertEquals(response.extract().jsonPath().get("worker.address.city"), "New York");
+        Assert.assertEquals(response.extract().jsonPath().get("worker.address.country"), "United States");
+        Assert.assertEquals(response.extract().jsonPath().get("worker.retrievedAt"), "2023-11-04T03:48:52.454Z");
     }
 
 }

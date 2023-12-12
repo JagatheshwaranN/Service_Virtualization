@@ -10,7 +10,7 @@ import org.testng.annotations.*;
 import static com.github.tomakehurst.wiremock.client.WireMock.matching;
 import static io.restassured.RestAssured.given;
 
-public class ConditionalMockingTestCase {
+public class ConditionalMockingTest {
 
     private static final String HOST = "localhost";
 
@@ -77,6 +77,5 @@ public class ConditionalMockingTestCase {
                         .all();
         Assert.assertEquals(response.extract().body().jsonPath().get("current-status"), "running");
     }
-
 
 }

@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
-public class WireMockAnyUrlGetAPITestCase {
+public class VerifyMockGetAPITest {
 
     private static final String HOST = "localhost";
 
@@ -28,7 +28,7 @@ public class WireMockAnyUrlGetAPITestCase {
         responseDefinitionBuilder.withStatus(200);
         responseDefinitionBuilder.withHeader("Content-Type", "application/json");
         responseDefinitionBuilder.withBodyFile("json/get_user.json");
-        WireMock.stubFor(WireMock.any(WireMock.anyUrl()).willReturn(responseDefinitionBuilder));
+        WireMock.stubFor(WireMock.get(WireMock.urlPathEqualTo("/user/emp101")).willReturn(responseDefinitionBuilder));
     }
 
     @AfterTest
@@ -39,7 +39,7 @@ public class WireMockAnyUrlGetAPITestCase {
     }
 
     @Test
-    public void mockGetApiTest() {
+    public void verifyMockGetApiTest() {
         ValidatableResponse response =
                 given()
                 .when()
@@ -49,6 +49,8 @@ public class WireMockAnyUrlGetAPITestCase {
                         .statusCode(200)
                         .log()
                         .all();
+
+        WireMock.verify(1, WireMock.getRequestedFor(WireMock.urlPathEqualTo("/user/emp101")));
 
         Assert.assertEquals(response.extract().statusCode(), 200);
         Assert.assertEquals(response.extract().header("Content-Type"), "application/json");

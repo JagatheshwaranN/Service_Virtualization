@@ -19,7 +19,7 @@ import java.nio.file.Paths;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static io.restassured.RestAssured.given;
 
-public class WireMockResponseTemplatingTestCase {
+public class WireMockResponseTemplatingTest {
 
     private static final String HOST = "localhost";
 

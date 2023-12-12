@@ -11,7 +11,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class WireMockErrorSimulationTestCase {
+public class WireMockErrorSimulationTest {
 
     private static final String HOST = "localhost";
 

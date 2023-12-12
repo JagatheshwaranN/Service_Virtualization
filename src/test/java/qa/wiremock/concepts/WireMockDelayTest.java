@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-public class WireMockDelayTestCase {
+public class WireMockDelayTest {
 
     private static final String HOST = "localhost";
 

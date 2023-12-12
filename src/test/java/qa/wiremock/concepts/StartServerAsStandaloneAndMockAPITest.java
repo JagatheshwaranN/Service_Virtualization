@@ -11,7 +11,7 @@ import static io.restassured.RestAssured.given;
  * @get
  * @mock
  */
-public class StartServerAsStandaloneAndMockAPITestCase {
+public class StartServerAsStandaloneAndMockAPITest {
 
     @Test(priority = 1)
     public void mockGetApiResponseTest() {

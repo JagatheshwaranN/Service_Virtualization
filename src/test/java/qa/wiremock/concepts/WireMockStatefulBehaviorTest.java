@@ -17,7 +17,7 @@ import java.nio.file.Path;
 
 import static io.restassured.RestAssured.given;
 
-public class WireMockStatefulBehaviorTestCase {
+public class WireMockStatefulBehaviorTest {
 
     private static final String HOST = "localhost";
 
