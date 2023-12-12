@@ -1,0 +1,100 @@
+package qa.wiremock.concepts;
+
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
+import com.github.tomakehurst.wiremock.client.WireMock;
+import io.restassured.response.ValidatableResponse;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import static io.restassured.RestAssured.given;
+
+public class VerifyMockPostAPITestCase {
+
+    private static final String HOST = "localhost";
+
+    private static final int PORT = 8080;
+
+    public static WireMockServer wireMockServer;
+
+    @BeforeTest
+    public void startupServer() {
+        wireMockServer = new WireMockServer(PORT);
+        wireMockServer.start();
+        WireMock.configureFor(HOST, PORT);
+        ResponseDefinitionBuilder responseDefinitionBuilder = new ResponseDefinitionBuilder();
+        responseDefinitionBuilder.withStatus(201);
+        responseDefinitionBuilder.withHeader("Content-Type", "application/json");
+        responseDefinitionBuilder.withBodyFile("json/add_user.json");
+        WireMock.stubFor(WireMock.post(WireMock.urlEqualTo("/user/add")).withRequestBody(WireMock.equalToJson("""
+                {
+                  "name": "John Doe",
+                  "location": "New York",
+                  "phone": "123-456-7890",
+                  "address": {
+                    "city": "New York",
+                    "state": "New York",
+                    "zipcode": "10001",
+                    "country": "United States"
+                  }
+                }""")).willReturn(responseDefinitionBuilder));
+    }
+
+    @AfterTest
+    public void shutdownServer() {
+        if (wireMockServer.isRunning() && null != wireMockServer) {
+            wireMockServer.shutdownServer();
+        }
+    }
+
+    @Test
+    public void mockPostApiTest() {
+
+        String payloadJson = """
+                                {
+                                  "name": "John Doe",
+                                  "location": "New York",
+                                  "phone": "123-456-7890",
+                                  "address": {
+                                    "city": "New York",
+                                    "state": "New York",
+                                    "zipcode": "10001",
+                                    "country": "United States"
+                                  }
+                                }""";
+        ValidatableResponse response =
+                given()
+                        .body(payloadJson)
+                .when()
+                        .post("http://localhost:8080/user/add")
+                .then()
+                        .assertThat()
+                        .statusCode(201)
+                        .log()
+                        .all();
+
+        Assert.assertEquals(response.extract().statusCode(), 201);
+        Assert.assertEquals(response.extract().header("Content-Type"), "application/json");
+        Assert.assertEquals(response.extract().jsonPath().get("worker.id"), "EMP101");
+        Assert.assertEquals(response.extract().jsonPath().get("worker.name"), "John Doe");
+        Assert.assertEquals(response.extract().jsonPath().get("worker.address.city"), "New York");
+        Assert.assertEquals(response.extract().jsonPath().get("worker.address.country"), "United States");
+        Assert.assertEquals(response.extract().jsonPath().get("worker.createdAt"), "2023-11-04T02:48:52.454Z");
+
+        WireMock.verify(1, WireMock.postRequestedFor(WireMock.urlEqualTo("/user/add")).withRequestBody(WireMock.equalToJson("""
+                {
+                  "name": "John Doe",
+                  "location": "New York",
+                  "phone": "123-456-7890",
+                  "address": {
+                    "city": "New York",
+                    "state": "New York",
+                    "zipcode": "10001",
+                    "country": "United States"
+                  }
+                }""")));
+    }
+
+}
