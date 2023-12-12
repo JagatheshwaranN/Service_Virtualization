@@ -78,7 +78,7 @@ public class MockPostAPITest {
                 given() // Start building the request specification
                         .body(payloadJson) // Set the request body to the provided JSON payload
                 .when() // Perform the action (in this case, an HTTP POST request)
-                        .post(requestUrl) // Specify the URL to send the POST request to
+                        .post(requestUrl) // Specify the URL to send the POST request
                 .then() // Start defining assertions on the response
                         .assertThat() // Begin assertion configuration
                         .statusCode(201) // Check that the response status code is 201 (Created)
