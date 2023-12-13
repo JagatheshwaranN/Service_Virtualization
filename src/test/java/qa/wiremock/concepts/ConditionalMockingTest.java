@@ -83,6 +83,9 @@ public class ConditionalMockingTest {
     // Test method to mock the GET API call and validate the response
     @Test(priority = 1)
     public void testConditionalMockingOfGetAPIWithPlainTextHeader() {
+        // Define the expected response
+        String expectedResponse = "Service Not Available";
+
         // Construct the request URL using the HOST and PORT constants
         String requestUrl = String.format("http://%s:%d/movies/1", HOST, PORT);
 
@@ -94,17 +97,20 @@ public class ConditionalMockingTest {
                         get(requestUrl) // Specify the URL to send the GET request
                 .then() // Start defining assertions on the response
                         .assertThat() // Begin assertion configuration
-                        .statusCode(503) // Check that the response status code is 503 (OK)
+                        .statusCode(503) // Check that the response status code is 503 (Service Unavailable)
                         .log() // Log details of the request and response
                         .all(); // Log all details (request headers, body, response headers, and body)
 
-        // Verify response body contains expected text
-        Assert.assertTrue(response.extract().body().asString().contains("Service Not Available"));
+        // Verify response body contains expected response
+        Assert.assertTrue(response.extract().body().asString().contains(expectedResponse));
     }
 
     // Test method to mock the GET API call and validate the response
     @Test(priority = 2)
     public void testConditionalMockingOfGetAPIWithApplicationJsonHeader() {
+        // Define the expected response
+        String expectedResponse = "running";
+
         // Construct the request URL using the HOST and PORT constants
         String requestUrl = String.format("http://%s:%d/movies/1", HOST, PORT);
 
@@ -119,8 +125,8 @@ public class ConditionalMockingTest {
                         .log() // Log details of the request and response
                         .all(); // Log all details (request headers, body, response headers, and body)
 
-        // Verify response body contains expected text
-        Assert.assertEquals(response.extract().body().jsonPath().get("current-status"), "running");
+        // Verify response body contains expected response
+        Assert.assertEquals(response.extract().body().jsonPath().get("current-status"), expectedResponse);
     }
 
 }
