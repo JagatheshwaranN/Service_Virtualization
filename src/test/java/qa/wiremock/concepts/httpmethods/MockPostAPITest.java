@@ -1,4 +1,4 @@
-package qa.wiremock.concepts;
+package qa.wiremock.concepts.httpmethods;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
@@ -12,17 +12,16 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 
 /**
- * This code effectively demonstrates the application of WireMock and REST
- * Assured libraries to test a PUT API endpoint responsible for updating
- * user details.
- * It establishes a simulated server environment through WireMock to precisely
- * replicate the behavior of the "/user/update/.*" endpoint.
- * REST Assured handles the execution of HTTP PUT requests and validates the
- * anticipated responses.
+ * This code exemplifies the use of WireMock and REST Assured libraries
+ * to test a POST API endpoint responsible for adding user data.
+ * It establishes a simulated server environment via WireMock, replicating the
+ * behavior of the "/user/add" endpoint.
+ * Meanwhile, REST Assured executes HTTP POST requests and ensures the expected
+ * responses are accurate.
  *
  * @author Jagatheshwaran N
  */
-public class MockPutAPITest {
+public class MockPostAPITest {
 
     // Constants for host and port
     private static final String HOST = "localhost";
@@ -44,20 +43,20 @@ public class MockPutAPITest {
             // Configure WireMock for host and port
             WireMock.configureFor(HOST, PORT);
 
-            // Define the expected response for the PUT /user/update/.* endpoint
+            // Define the expected response for the POST /user/add endpoint
             ResponseDefinitionBuilder responseDefinitionBuilder = new ResponseDefinitionBuilder();
 
             // Set the expected status code
-            responseDefinitionBuilder.withStatus(200);
+            responseDefinitionBuilder.withStatus(201);
 
             // Set the expected Content-Type header
             responseDefinitionBuilder.withHeader("Content-Type", "application/json");
 
             // Set the response body file
-            responseDefinitionBuilder.withBodyFile("json/update_user.json");
+            responseDefinitionBuilder.withBodyFile("json/add_user.json");
 
-            // Stub the WireMock behavior for the PUT request with expected payload
-            WireMock.stubFor(WireMock.put(WireMock.urlMatching("/user/update/.*"))
+            // Stub the WireMock behavior for the POST request with expected payload
+            WireMock.stubFor(WireMock.post(WireMock.urlEqualTo("/user/add"))
                     .withRequestBody(WireMock.equalToJson(getPayload())) // Verify the request body matches the expected payload
                     .willReturn(responseDefinitionBuilder));
         } catch (Exception e) {
@@ -75,30 +74,30 @@ public class MockPutAPITest {
         }
     }
 
-    // Test method to mock the PUT API call and validate the response
+    // Test method to mock the POST API call and validate the response
     @Test
-    public void testMockPutAPI() {
+    public void testMockPostAPI() {
         // Construct the request URL using the HOST and PORT constants
-        String requestUrl = String.format("http://%s:%d/user/update/emp101", HOST, PORT);
+        String requestUrl = String.format("http://%s:%d/user/add", HOST, PORT);
 
         // Get the JSON payload for the request
         String payloadJson = getPayload();
 
-        // Perform the PUT request and validate the response
+        // Perform the POST request and validate the response
         ValidatableResponse response =
                 given() // Start building the request specification
                         .body(payloadJson) // Set the request body to the provided JSON payload
-                .when() // Perform the action (in this case, an HTTP PUT request)
-                        .put(requestUrl) // Specify the URL to send the PUT request
+                .when() // Perform the action (in this case, an HTTP POST request)
+                        .post(requestUrl) // Specify the URL to send the POST request
                 .then() // Start defining assertions on the response
                         .assertThat() // Begin assertion configuration
-                        .statusCode(200) // Check that the response status code is 200 (OK)
+                        .statusCode(201) // Check that the response status code is 201 (Created)
                         .log() // Log details of the request and response
                         .all(); // Log all details (request headers, body, response headers, and body)
 
         // Assertions to validate specific fields in the response
         // Verify the status code
-        Assert.assertEquals(200, response.extract().statusCode(), "Unexpected status code");
+        Assert.assertEquals(201, response.extract().statusCode(), "Unexpected status code");
 
         // Verify the Content-Type header
         Assert.assertEquals(response.extract().header("Content-Type"),"application/json", "Unexpected Content-Type");
@@ -108,12 +107,9 @@ public class MockPutAPITest {
 
         // Verify the worker name
         Assert.assertEquals(response.extract().jsonPath().get("worker.name"), "John Doe", "Incorrect worker name");
-
-        // Verify the worker city
-        Assert.assertEquals(response.extract().jsonPath().get("worker.address.city"), "MiddleTown");
     }
 
-    // Method to return the JSON payload for the PUT request
+    // Method to return the JSON payload for the POST request
     private String getPayload() {
         return """
                 {
@@ -121,7 +117,7 @@ public class MockPutAPITest {
                   "location": "New York",
                   "phone": "123-456-7890",
                   "address": {
-                    "city": "MiddleTown",
+                    "city": "New York",
                     "state": "New York",
                     "zipcode": "10001",
                     "country": "United States"
@@ -130,3 +126,5 @@ public class MockPutAPITest {
     }
 
 }
+
+

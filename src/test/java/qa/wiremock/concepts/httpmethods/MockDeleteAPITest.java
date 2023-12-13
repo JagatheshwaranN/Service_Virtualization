@@ -1,4 +1,4 @@
-package qa.wiremock.concepts;
+package qa.wiremock.concepts.httpmethods;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
