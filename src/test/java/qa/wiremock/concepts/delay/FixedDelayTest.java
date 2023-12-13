@@ -50,7 +50,7 @@ public class FixedDelayTest {
 
     // Test to verify a simulated fixed delay for a specific endpoint
     @Test
-    public void shouldSimulateFixedDelayForEndpoint() {
+    public void testFixedDelaySimulation() {
         // Define the expected Id
         int expectedId = 2;
 
