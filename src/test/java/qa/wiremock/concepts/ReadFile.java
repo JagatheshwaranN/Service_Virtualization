@@ -19,5 +19,4 @@ public class ReadFile {
         return Files.readString(path, StandardCharsets.UTF_8);
     }
 
-
 }

@@ -11,6 +11,15 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
+/**
+ * The code demonstrates how WireMock can intercept requests made to a specific
+ * URL and redirect them to another endpoint while allowing detailed validation
+ * of the responses received from the proxied URL.
+ * This setup is often used in testing environments to mimic external APIs or
+ * services that might not be available during development or testing.
+ *
+ * @author Jagatheshwaran N
+ */
 public class WireMockProxyTest {
 
     // Constants for host and port
