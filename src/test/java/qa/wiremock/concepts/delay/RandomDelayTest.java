@@ -13,6 +13,19 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
+/**
+ * This code illustrates the use of WireMock to simulate a random delay
+ * in API responses.
+ * This class showcases the process of setting up a WireMock server, configuring
+ * stubs to introduce a random delay in responses, and validating the behavior
+ * of the delayed API.
+ * It's beneficial for testing scenarios where verifying application behavior
+ * under varying and unpredictable response times is necessary.
+ * This allows developers and testers to simulate diverse network conditions
+ * and analyze system performance under different response delay scenarios.
+ *
+ * @author Jagatheshwaran N
+ */
 public class RandomDelayTest {
 
     // Constants for host and port

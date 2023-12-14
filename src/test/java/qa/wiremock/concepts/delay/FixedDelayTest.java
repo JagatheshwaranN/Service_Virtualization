@@ -11,6 +11,19 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
+/**
+ * This code illustrates the utilization of WireMock to simulate a fixed delay
+ * in API responses.
+ * This class showcases the process of setting up a WireMock server, configuring
+ * stubs to introduce a delay in responses, and validating the behavior of the
+ * delayed API.
+ * It's beneficial for testing scenarios where verifying application behavior
+ * under delayed API responses is necessary.
+ * This allows developers and testers to understand and handle scenarios where
+ * systems may face delays in receiving responses from external services.
+ *
+ * @author Jagatheshwaran N
+ */
 public class FixedDelayTest {
 
     // Constants for host and port

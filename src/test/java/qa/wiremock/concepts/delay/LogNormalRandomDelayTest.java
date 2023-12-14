@@ -11,6 +11,19 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
+/**
+ * This code illustrates the use of WireMock to simulate a log-normal random
+ * delay in API responses.
+ * This class showcases the process of setting up a WireMock server, configuring
+ * stubs to introduce a log-normal random delay in responses, and validating the
+ * behavior of the delayed API.
+ * It's beneficial for testing scenarios where verifying application behavior
+ * under varying response times is necessary.
+ * This allows developers and testers to simulate realistic network conditions
+ * and analyze system performance under different response delay scenarios.
+ *
+ * @author Jagatheshwaran N
+ */
 public class LogNormalRandomDelayTest {
 
     // Constants for host and port

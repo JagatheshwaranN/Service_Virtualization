@@ -11,6 +11,19 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
+/**
+ * This code demonstrates the implementation of WireMock to simulate a uniform
+ * random delay in API responses.
+ * This class exhibits the process of setting up a WireMock server, configuring
+ * stubs to introduce a uniform random delay in responses, and validating the
+ * behavior of the delayed API.
+ * It's beneficial for testing scenarios where the application's behavior under
+ * random response times within a specific range needs verification.
+ * This enables developers and testers to simulate diverse network conditions
+ * and analyze system performance under different uniform random delay scenarios.
+ *
+ * @author Jagatheshwaran N
+ */
 public class UniformRandomDelayTest {
 
     // Constants for host and port
