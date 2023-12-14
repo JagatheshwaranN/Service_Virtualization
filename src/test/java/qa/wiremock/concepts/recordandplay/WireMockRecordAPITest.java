@@ -9,6 +9,14 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
+/**
+ * This code illustrates the use of WireMock, a versatile tool for stubbing and
+ * recording HTTP interactions in testing environments.
+ * The class showcases the process of setting up a WireMock server, configuring
+ * stubs, recording API interactions, and validating the behavior of a recorded API.
+ *
+ * @author Jagatheshwaran N
+ */
 public class WireMockRecordAPITest {
 
     // Constants for host and port

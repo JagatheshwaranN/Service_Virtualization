@@ -15,6 +15,15 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+/**
+ * This code illustrates the usage of WireMock, a tool for stubbing and
+ * mocking HTTP interactions.
+ * This class showcases the process of setting up a WireMock server,
+ * configuring stubs from pre-recorded mappings, and validating the
+ * behavior of a playback API.
+ *
+ * @author Jagatheshwaran N
+ */
 public class WireMockPlaybackAPITest {
 
     // Constants for host and port
