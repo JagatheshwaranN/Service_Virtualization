@@ -1,4 +1,4 @@
-package qa.wiremock.concepts;
+package qa.wiremock.concepts.conditionalmock;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
@@ -9,6 +9,18 @@ import org.testng.annotations.*;
 
 import static io.restassured.RestAssured.given;
 
+/**
+ * This code showcases the utilization of WireMock for conditional mocking of
+ * HTTP GET requests to different endpoints based on specific header values.
+ * It sets up a WireMock server and configures stubs to respond differently
+ * based on the Accept header in the request.
+ * It helps simulate diverse responses (such as service availability and
+ * specific status) and response times for different content types, allowing
+ * developers and testers to verify the system's behavior under various
+ * request conditions.
+ *
+ * @author Jagatheshwaran N
+ */
 public class ConditionalMockingTest {
 
     // Constants for host and port
