@@ -9,6 +9,18 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+/**
+ * This code showcases the utilization of WireMock to simulate an empty response
+ * scenario and test the system's behavior when encountering such an exception.
+ * It sets up a WireMock server and configures it to listen on a specific port (8080).
+ * It defines a stub for any HTTP method sent to the /user/emp103 URL path.
+ * This stub uses the Fault.EMPTY_RESPONSE fault, instructing WireMock to return
+ * an empty response body for any request matching the URL path.
+ * The test method makes a GET request to the /user/emp103 endpoint using the Apache
+ * HttpClient library.
+ *
+ * @author Jagatheshwaran N
+ */
 public class EmptyResponseExceptionTest {
 
     // Constants for host and port

@@ -9,6 +9,18 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+/**
+ * This code utilizes WireMock to mimic a specific fault scenario involving the
+ * generation of random data followed by the closure of the connection.
+ * It sets up a WireMock server and configures it to listen on a specific port (8080).
+ * It defines a stub for any HTTP method sent to the /user/emp103 URL path.
+ * This stub uses the Fault.RANDOM_DATA_THEN_CLOSE fault, instructing WireMock to
+ * Generate a response with randomly generated data of an unspecified length.
+ * Abruptly close the connection after sending the first chunk of data.
+ * The test method sends a GET request to the /user/emp103 endpoint using Apache HttpClient.
+ *
+ * @author Jagatheshwaran N
+ */
 public class RandomDataExceptionTest {
 
     // Constants for host and port

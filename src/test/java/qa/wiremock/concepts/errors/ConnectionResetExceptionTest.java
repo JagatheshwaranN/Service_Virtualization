@@ -9,6 +9,18 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+/**
+ * This code demonstrates the fault injection using WireMock to simulate a
+ * "connection reset by peer" scenario.
+ * It sets up a WireMock server and configures it, and also defines a stub
+ * for any HTTP method sent to the /user/emp103 URL path.
+ * The stub is configured to return a response with the Fault.CONNECTION_RESET_BY_PEER
+ * fault, which simulates the server abruptly terminating the connection.
+ * The test method then makes a GET request to the /user/emp103 endpoint using
+ * the Apache HttpClient library.
+ *
+ * @author Jagatheshwaran N
+ */
 public class ConnectionResetExceptionTest {
 
     // Constants for host and port

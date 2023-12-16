@@ -9,6 +9,18 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+/**
+ * This code demonstrates the usage of WireMock to simulate an internal server error
+ * scenario and test how a system interacts when encountering such an error.
+ * It sets up a WireMock server and configures it to listen on a specific port (8080).
+ * It defines a stub for any HTTP method sent to the /user/emp102 URL path.
+ * This stub uses the serverError() method to instruct WireMock to return a response
+ * with a 500 status code and nobody, simulating an internal server error.
+ * The test method uses RestAssured to send a GET request to the /user/emp102 endpoint.
+ * It then prints the received HTTP status code and status line to the console.
+ *
+ * @author Jagatheshwaran N
+ */
 public class InternalServerErrorTest {
 
     // Constants for host and port

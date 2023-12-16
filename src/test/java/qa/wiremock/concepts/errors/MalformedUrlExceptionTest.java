@@ -9,6 +9,17 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+/**
+ * This code utilizes WireMock, a mock server, to simulate a specific fault scenario
+ * and test how a system behaves when faced with a malformed response chunk.
+ * It sets up a WireMock server and configures it to listen on a specific port (8080).
+ * It defines a stub for any HTTP method sent to the /user/emp103 URL path.
+ * This stub uses the Fault.MALFORMED_RESPONSE_CHUNK fault, instructing WireMock to
+ * inject a malformed chunk into the response body, simulating an invalid data structure.
+ * The test method sends a GET request to the /user/emp103 endpoint using Apache HttpClient.
+ *
+ * @author Jagatheshwaran N
+ */
 public class MalformedUrlExceptionTest {
 
     // Constants for host and port
