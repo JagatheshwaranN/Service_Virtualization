@@ -30,10 +30,13 @@ public class InternalServerErrorTest {
         // Configures WireMock to listen on the specified host and port.
         WireMock.configureFor(HOST, PORT);
 
-        // Stubbing any request with the URL path "/user/emp102" to return a server error (HTTP status code 500)
+        // Stubbing any request with the URL path "/user/emp102" to return
+        // a server error (HTTP status code 500)
         WireMock.stubFor(
-                WireMock.any(WireMock.urlPathEqualTo("/user/emp102")) // Match any HTTP method for the URL path "/user/emp102"
-                        .willReturn(WireMock.serverError())); // Define the response to return a server error (status code 500)
+                // Match any HTTP method for the URL path "/user/emp102"
+                WireMock.any(WireMock.urlPathEqualTo("/user/emp102"))
+                        // Define the response to return a server error (status code 500)
+                        .willReturn(WireMock.serverError()));
     }
 
     // Method to shut down the WireMock server after test execution

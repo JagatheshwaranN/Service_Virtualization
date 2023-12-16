@@ -32,9 +32,11 @@ public class EmptyResponseExceptionTest {
 
         // Stubbing any request URL that matches "/user/emp103" and returning an empty response
         WireMock.stubFor(
-                WireMock.any(WireMock.urlPathEqualTo("/user/emp103")) // Match any HTTP method and the specific URL path
+                // Match any HTTP method and the specific URL path
+                WireMock.any(WireMock.urlPathEqualTo("/user/emp103"))
                         .willReturn(WireMock.aResponse()
-                                .withFault(Fault.EMPTY_RESPONSE))); // Generate a response with an empty body
+                                // Generate a response with an empty body
+                                .withFault(Fault.EMPTY_RESPONSE)));
     }
 
     // Method to shut down the WireMock server after test execution
