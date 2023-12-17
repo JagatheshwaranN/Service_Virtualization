@@ -18,6 +18,30 @@ import java.nio.file.Paths;
 
 import static io.restassured.RestAssured.given;
 
+/**
+ * This code is a comprehensive test suite designed to validate a service's
+ * behavior using WireMock, a powerful tool for mocking HTTP-based services.
+ * It demonstrates stateful behavior testing, simulating various scenarios for
+ * cart management.
+ * It tests various scenarios related to adding, viewing, and deleting items
+ * from the cart.
+ * <p>
+ * Empty Cart: This test case verifies that a GET request to the /cart-items
+ * endpoint returns an empty cart when no items are added.
+ * <p>
+ * Add Item: This test case simulates adding an item to the cart by sending a
+ * POST request with the item name to the /cart-items endpoint and asserts a
+ * successful response (201 Created).
+ * <p>
+ * Full Cart: This test case verifies that a GET request to the /cart-items
+ * endpoint returns the added item after it was added in the previous scenario.
+ * <p>
+ * Delete Cart: This test case simulates deleting all items from the cart by
+ * sending a DELETE request to the /cart-items endpoint and asserts a successful
+ * response (204 No Content).
+ *
+ * @author Jagatheshwaran N
+ */
 public class WireMockStatefulBehaviorTest {
 
     // Constants for host and port
