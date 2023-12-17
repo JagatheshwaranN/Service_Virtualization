@@ -1,4 +1,4 @@
-package qa.wiremock.concepts;
+package qa.wiremock.concepts.statefulness;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
@@ -17,30 +17,44 @@ import java.nio.file.Path;
 
 import static io.restassured.RestAssured.given;
 
-public class WireMockStatefulBehaviorTest {
+public class WireMockStatefulBehaviorTestCopy {
 
+    // Constants for host and port
     private static final String HOST = "localhost";
-
     private static final int PORT = 8080;
 
-    private static WireMockServer wireMockServer;
+    // Instance of WireMockServer
+    public static WireMockServer wireMockServer;
 
+    // Define the base file path for JSON files
     private static final String FILE_PATH = System.getProperty("user.dir") + "/src/test/resources/__files/json/cart/";
 
+    // Instance of scenarioName to store a scenario's name
     private String scenarioName;
 
+    // Instance of scenarioState to store the state of a scenario
     private String scenarioState;
 
+    // Method to start the WireMock server and configure stubs before test execution
     @BeforeTest
     public void startServer() {
+        // Creates a new WireMock server instance.
         wireMockServer = new WireMockServer(PORT);
+
+        // Starts the WireMock server.
         wireMockServer.start();
+
+        // Configures WireMock to listen on the specified host and port.
         WireMock.configureFor(HOST, PORT);
     }
 
+    // Method to shut down the WireMock server after test execution
     @AfterTest
     public void shutdownServer() {
-        if (wireMockServer.isRunning() && null != wireMockServer) {
+        // Check if the WireMock server instance exists and is running
+        if (wireMockServer != null && wireMockServer.isRunning()) {
+
+            // Shutdown the WireMock server
             wireMockServer.shutdownServer();
         }
     }
